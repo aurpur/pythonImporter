@@ -15,22 +15,6 @@ def path_leaf(path):
 #############################################
 
 
-## Todo : change with the needed sample
-# subFolder = "using_regularization/"
-# filename = "so_60566498_useless_dropout.py"
-
-# ## Sample folder and output folder
-# sampleFolder = "../sample_design_smell/"
-# outputFolder = "output/"
-
-## Build the path of the sample and the output file
-# path = sampleFolder + subFolder + filename
-# outputFile = outputFolder + filename.split('.')[0]+ ".json"
-
-
-
-
-
 print("---------------------------------------------------------------- ")
 print("---------------------------------------------------------------- ")
 print("   The samples are in the folder 'sample_design_smell")
