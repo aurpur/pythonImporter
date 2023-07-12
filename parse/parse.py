@@ -1,7 +1,13 @@
 import ast
 import json
+import pathlib
+import ntpath
 
 from ast2json import ast2json
+
+def path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
 
 ############################################# 
 ## Transform the Python sample to AST tree ## 
@@ -10,29 +16,49 @@ from ast2json import ast2json
 
 
 ## Todo : change with the needed sample
-subFolder = "layers_formation/"
-filename = "gh_non_dominating_dow_sampling.py"
+# subFolder = "using_regularization/"
+# filename = "so_60566498_useless_dropout.py"
 
-## Sample folder and output folder
-sampleFolder = "../sample_design_smell/"
-outputFolder = "output/"
+# ## Sample folder and output folder
+# sampleFolder = "../sample_design_smell/"
+# outputFolder = "output/"
 
 ## Build the path of the sample and the output file
-path = sampleFolder + subFolder + filename
-outputFile = outputFolder + filename.split('.')[0]+ ".json"
+# path = sampleFolder + subFolder + filename
+# outputFile = outputFolder + filename.split('.')[0]+ ".json"
 
-## Parse the Python sample to AST tree
-f = open(path, "r")
-tree = ast.parse(f.read())
 
-## Save the AST tree to JSON file
-resultFile = open(outputFile, "w")
-print(ast2json(tree))
-resultFile.write(json.dumps(ast2json(tree)))
 
-## Close the files stream
-f.close()
-resultFile.close()
+
+
+print("---------------------------------------------------------------- ")
+print("---------------------------------------------------------------- ")
+print("   The samples are in the folder 'sample_design_smell")
+print("   All the samples parsed are saved in the folder 'output'")
+print("---------------------------------------------------------------- ")
+print("---------------------------------------------------------------- ")
+print("\n")
+print("Parsing the samples ...")
+print("---------------------------------------------------------------- ")
+desktop = pathlib.Path("../sample_design_smell/")
+for path in desktop.rglob("*.py"):
+    if path.is_file():
+        ## Build the path of the sample and the output file
+        filename = path_leaf(str(path))
+        outputFolder = "output/"
+        outputFile = outputFolder + filename.split('.')[0]+ ".json"
+
+
+        ## Parse the Python sample to AST tree
+        with open(path, "r") as f:
+            tree = ast.parse(f.read())
+            jsonFormated_str = json.dumps(ast2json(tree), indent=4)
+
+        ## Save the AST tree to JSON file
+        with open(outputFile, "w") as resultFile:
+            #print(jsonFormated_str)
+            print(filename + " ......... parsed")
+            resultFile.write(jsonFormated_str)
 
 
 
