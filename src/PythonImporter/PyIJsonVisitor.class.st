@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #visiting }
+PyIJsonVisitor >> visitAssign: aJsonNode [ 
+	| assign |
+	assign := PyIAssignStatement new.
+	assign targets: (self visitJsonElement: (aJsonNode at: #targets)).
+	assign value: (self visitJsonArray: (aJsonNode at: #value)).
+	^assign
+
+]
+
+{ #category : #visiting }
 PyIJsonVisitor >> visitCall: aJsonNode [ 
 	| function |
 	function := PyIFunctionCall new.
